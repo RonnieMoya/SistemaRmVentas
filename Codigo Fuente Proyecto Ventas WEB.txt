@@ -1,0 +1,2222 @@
+Codigo Fuente
+
+Vista Clientes.jsp
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <title>Administracion de Clientes</title>
+    </head>
+    <body>
+       
+       
+   
+        <div class="d-flex">
+            <div class="card col-sm-3">
+                <div class="card-body">
+                    <form action="Controlador?menu=Clientes" method="POST">
+                        <div class="form-group">
+                            <label>Rut</label>
+                            <input type="text" value="${cliente.getRut()}" name="txtRut" class="form-control"> 
+                        </div> 
+                        <div class="form-group">
+                            <label>Nombres</label>
+                            <input type="text" value="${cliente.getNombres()}"  name="txtNombres" class="form-control"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Direccion</label>
+                            <input type="text" value="${cliente.getDireccion()}" name="txtDireccion" class="form-control"> 
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <input type="text" value="${cliente.getEstado()}" name="txtEstado" class="form-control"> 
+                        </div>
+                        
+                        <input type="submit" name="accion" value="Agregar" class="btn btn-info"> 
+                        <input type="submit" name="accion" value="Actualizar" class="btn btn-success"> 
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Rut</th>
+                            <th>Nombres</th>
+                            <th>Direccion</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="cli" items="${clientes}">
+                        <tr>
+                            <th>${cli.getIdCliente()}</th>
+                            <td>${cli.getRut()}</td>
+                            <td>${cli.getNombres()}</td>
+                            <td>${cli.getDireccion()}</td>
+                            <td>${cli.getEstado()}</td>
+                            <td>
+                                <a class="btn btn-warning" href="Controlador?menu=Clientes&accion=Modificar&IdCliente=${cli.getIdCliente()}">Modificar</a>
+                                <a class="btn btn-danger" href="Controlador?menu=Clientes&accion=Eliminar&IdCliente=${cli.getIdCliente()}">Eliminar</a>
+                            </td>
+                        </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>    
+    </body>
+</html>
+
+Vista Home.jsp
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tu Software de Ventas</title>
+    <!-- Enlace a Bootstrap CSS (asegúrate de cambiar la ruta si estás usando un CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg navbar-info ">
+    <div class="container">
+        <a class="navbar-brand" href="#">Tu Software</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+     
+        </div>
+    </div>
+</nav>
+
+<!-- Sección de bienvenida -->
+<section class="container my-5">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>Bienvenido a Tu Software de Ventas</h1>
+            <p class="lead">Gestiona tus ventas de manera eficiente con nuestra potente herramienta.</p>
+           
+        </div>
+        <div class="col-lg-6">
+            <!-- Puedes agregar aquí una imagen representativa de tu software -->
+        </div>
+    </div>
+</section>
+
+<!-- Pie de página -->
+<footer class="bg-dark text-light text-center py-3">
+    <p>&copy; 2023 Tu Software de Ventas</p>
+</footer>
+
+<!-- Enlace a Bootstrap JS y Popper.js (asegúrate de cambiar la ruta si estás usando un CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
+Vista Principal.jsp
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg nvbar-light bg-info">
+            <div class="container-fluid">
+                  
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a style="margin-left: 10px;border: none" class="btn btn-outline-light" href="Controlador?menu=Home"target="myFrame">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="margin-left: 10px;border: none" class="btn btn-outline-light" href="Controlador?menu=Productos&accion=Listar"target="myFrame" >Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="margin-left: 10px;border: none" class="btn btn-outline-light" href="Controlador?menu=Usuarios&accion=Listar"target="myFrame" >Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="margin-left: 10px;border: none" class="btn btn-outline-light" href="Controlador?menu=Clientes&accion=Listar"target="myFrame">Clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="margin-left: 10px;border: none" class="btn btn-outline-light" href="Controlador?menu=Ventas&accion=default"target="myFrame">NuevaVenta</a>
+                            
+                        </li>
+                    </ul>
+
+                </div>
+                 
+                <div class="dropdown">
+                    <img src="Imagenes/user_person_people_6100.png" alt="10" width="50"/>
+                    <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" data-toggle="dropdown">
+                     ${usuario.getNombres()}
+                    </button>    
+                        
+                    <div class="dropdown-menu text-center">
+                        <a class="dropdown-item" href="#">
+                             
+                        </a>
+                        <a class="dropdown-item" href="#">${usuario.getUser()}</a>
+                        <a class="dropdown-item" href="#">${usuario.getUser()}@gmail.com</a>
+                        <div class="dropdown-divider"> </div>
+                        <form action="Validar" method="POST">
+                          <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>  
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+                       
+        </nav>
+                        <div class="m-4" style="height: 650px;width: ">
+                            <div class="d-flex col-sm-12 ">
+                                <img class="col-sm-2"src="Imagenes/Palabra Ventas.jpeg" alt="70" width="170" />  
+                                <h1 class="text-center text-info col-sm-10 " > Sistema de Ventas</h1>
+                            </div>
+                            
+                           
+                    
+                            <iframe name="myFrame" style="height: 100%;width: 100%; border: none">
+                                
+                            </iframe>
+                        </div>            
+                        
+         
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+</html>
+
+Vista Productos.jsp
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <div class="d-flex">
+            <div class="card col-sm-3">
+                <div class="card-body">
+                    <form action="Controlador?menu=Productos" method="POST">
+
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" value="${producto.getNombre()}"  name="txtNombre" required class="form-control"> 
+                        </div>
+
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="text" value="${producto.getPrecio()}" name="txtPrecio" required class="form-control"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input type="text" value="${producto.getStock()}"  name="txtStock" required class="form-control"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <input type="text" value="${producto.getEstado()}" name="txtEstado"required class="form-control"> 
+                        </div>
+
+                        <input type="submit" name="accion" value="Agregar" class="btn btn-info"> 
+                        <input type="submit" name="accion" value="Actualizar" class="btn btn-success"> 
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="pro" items="${productos}">
+                        <tr>
+                            <th>${pro.getIdProducto()}</th>
+                            <td>${pro.getNombre()}</td>
+                            <td>${pro.getPrecio()}</td>
+                            <td>${pro.getStock()}</td>
+                            <td>${pro.getEstado()}</td>
+                            <td>
+                                <a class="btn btn-warning" href="Controlador?menu=Productos&accion=Modificar&idProducto=${pro.getIdProducto()}">Modificar</a>
+                                <a class="btn btn-danger" href="Controlador?menu=Productos&accion=Eliminar&idProducto=${pro.getIdProducto()}">Eliminar</a>
+                            </td>
+                        </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+
+            </div>    
+        </div>                   
+    </body>
+</html>
+
+Vista Usuarios.jsp
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <title>Administracion de Usuarios</title>
+    </head>
+    <body>
+        <div class="d-flex">
+            <div class="card col-sm-3">
+                <div class="card-body">
+                    <form action="Controlador?menu=Usuarios" method="POST">
+                        <div class="form-group">
+                            <label>Rut</label>
+                            <input type="text" value="${usuario.getRut()}" name="txtRut" required class="form-control"> 
+                        </div> 
+                        <div class="form-group">
+                            <label>Nombres</label>
+                            <input type="text" value="${usuario.getNombres()}"  name="txtNombres" required class="form-control"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <input type="text" value="${usuario.getApellidos()}" name="txtApellidos" required class="form-control"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Telefono</label>
+                            <input type="text" value="${usuario.getTelefono()}" name="txtTelefono" required  class="form-control"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <input type="text" value="${usuario.getEstado()}" name="txtEstado" required  class="form-control"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre Usuario</label>
+                            <input type="text" value="${usuario.getUser()}"  name="txtUsuario" required  class="form-control"> 
+                        </div>
+                        <input type="submit" name="accion" value="Agregar" class="btn btn-info"> 
+                        <input type="submit" name="accion" value="Actualizar" class="btn btn-success"> 
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Rut</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Telefono</th>
+                            <th>Estado</th>
+                            <th>User</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="usu" items="${usuarios}">
+                        <tr>
+                            <th>${usu.getIdEmpleado()}</th>
+                            <td>${usu.getRut()}</td>
+                            <td>${usu.getNombres()}</td>
+                            <td>${usu.getApellidos()}</td>
+                            <td>${usu.getTelefono()}</td>
+                            <td>${usu.getEstado()}</td>
+                            <td>${usu.getUser()}</td>
+                            <td>
+                                <a class="btn btn-warning" href="Controlador?menu=Usuarios&accion=Modificar&idEmpleado=${usu.getIdEmpleado()}">Modificar</a>
+                                <a class="btn btn-danger" href="Controlador?menu=Usuarios&accion=Eliminar&idEmpleado=${usu.getIdEmpleado()}">Eliminar</a>
+                            </td>
+                        </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>    
+    </body>
+</html>
+
+Vista Ventas.jsp
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!Doctype html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <title>Administracion de Ventas</title>
+        <style>
+            @media print
+            {
+                .parte01, .btn, .accion{
+                    display:none;
+                }
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="d-flex">
+
+            <div class="col-sm-4 parte01">
+                <div class="card">
+                    <form action="Controlador?menu=Ventas" method="POST">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label>Datos del Cliente</label>
+                            </div>
+                            <div class="form-group d-flex">
+                                <div class="col-sm-12 d-flex"> 
+                                    
+                                    <input type="text" name="codigoCliente" value="${c.getRut()}" required class="form-control" placeholder="RutCliente"> 
+                                    <input type="submit" name="accion" value="BuscarC" class="btn btn-outline-info">
+
+                                    <div class="col-sm-6">
+                                        <input type="text" value="${c.getNombres()}" name="nombresCliente" class="form-control" placeholder="Datos del Cliente">
+                                    </div><br>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                                  
+                    </form>
+                    <form action="Controlador?menu=Ventas" method="POST">                
+                        <div class="card-body">                
+                            <div class="form-group">
+                                <label>Datos del Producto</label>
+
+                            </div>
+                            <!--Datos del Producto -->         
+                            <div class="form-group d-flex ">
+                                <div class="col-sm- d-flex col-sm-12">
+
+                                    <input type="number" name="codigoProducto" value="${producto.getIdProducto()}" required value="0" class="form-control" placeholder="Codigo">
+                                    <button type="submit" name="accion" value="BuscarP" class="btn btn-outline-info">BuscarP</button>
+
+
+                                    <div class="col-sm-6">
+                                        <input type="text" name="nombreProducto" value="${producto.getNombre()}" class="form-control" placeholder="Producto">
+                                    </div>
+
+                                </div>
+                            </div><br>    
+
+                            <div class="form-group d-flex">
+                                <div class="col-sm-6 ">
+                                    
+                                    <input type="text" name="precio" value="${producto.getPrecio()}" class="form-control" placeholder="$ Precio">
+                                </div>
+                                <div class="col-sm-3">
+                                    
+                                    <input type="number" name="cantidad" value="1" class="form-control" placeholder="0">
+                                </div> 
+                                <div class="col-sm-3">
+                                    <input type="text" name="stock" value="${producto.getStock()}" class="form-control" placeholder="Stock" >
+                                </div>
+                            </div>
+                            <!--Boton agregar producto -->
+                            <div class="form-group">
+                                <div class="col-sm">
+                                    <button type="submit" name="accion" value="Agregar" class="btn btn-outline-info">Agregar Producto</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                     </form> 
+
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex col-sm-4 ml-auto">
+                            <label>N°Serie</label>
+                            <input type="text" name="NroSerie" value="${nserie}" class="form-control">
+                        </div>   
+                        <br>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Codigo</th>
+                                <th>Descripcion</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>SubTotal</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <c:forEach var="list" items="${lista}">
+                                <tr>
+                                    <td>${list.getItem()}</td>
+                                    <td>${list.getIdProducto()}</td>
+                                    <td>${list.getDescripcionP()}</td>
+                                    <td>${list.getPrecio()}</td>
+                                    <td>${list.getCantidad()}</td>
+                                    <td>${list.getSubtotal()}</td>
+                                    <td class="d-flex">
+                                        <a href="" class="btn btn-warning">Editar</a>
+                                        <a href="Controlador?menu=Ventas&accion=EliminarLista&IdProducto=${list.getIdProducto()}" class="btn btn-danger" style="margin-left: 10px">Eliminar</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="card-footer d-flex">
+                    <div class="col-sm-4">
+                        <a href="Controlador?menu=Ventas&accion=GenerarVenta" onclick="print()" class="btn btn-success">Generar Venta</a>
+                        <input type="submit" name="accion" value="Cancelar" class="btn btn-danger">
+                        
+                    </div>
+                    <div class="col-sm-3 ml-auto d-flex">
+                        <label>Neto:</label>
+                        <input type="text" name="txtNeto" value="S/. ${neto}" class="form-control">
+                        
+                    </div>
+                         <div class="col-sm-2 ml-auto d-flex">
+                        <label>Iva:</label>
+                        <input type="text" name="txtNeto" value="S/. ${iva}" class="form-control">
+                        
+                    </div>
+                    <div class="col-sm-3 ml-auto d-flex">
+                        <label>Total:</label>
+                        <input type="text" name="txtTotal" value="S/. ${totalApagar}" class="form-control">
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+</html>
+
+Vista index.jsp
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+ 
+        <title>SistemaVentasWeb</title>
+    </head>
+    <body>
+        <div class="container mt-4 col-lg-3">
+            <div class="card col-sm-10">
+                <div class="card-body">
+                    <form class="form-sign" action="Validar" method="POST">
+                        <div class="form-group text-center">
+                            <h3>Login</h3>
+                            <img src="Imagenes/Palabra Ventas.jpeg" alt="70" width="170" />
+                            <label>Bienvenidos al Sistema</label>   
+                            
+                        </div>
+                        <div class="form-group">
+                            <label>Usuario:</label>
+                            <input type="text" class="form-control" required name="txtUsuario">
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Contraseña:</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" required name="txtpassword">                            
+                            
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" name="accion" value="Ingresar">Ingresar</button>
+                    </form>
+                       
+                </div>
+            </div>
+        </div>
+ 
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+</html>
+
+Source Packages
+ crear Packages Config
+
+Clases 
+
+Clase Conexion 
+
+package Config;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author rfmoy
+ */
+public class Conexion {
+    
+    Connection con;
+    String url="jdbc:mysql://localhost:3306/bdventas";
+    String usuario = "root";
+    String clave = "";
+   
+   public Connection Conexion(){
+       
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url,usuario,clave);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return con;
+    }
+
+    
+}
+
+Clase Numero de Serie 
+
+package Config;
+
+/**
+ *
+ * @author rfmoy
+ */
+public class GenerarNumSerie {
+    
+    int dato;
+    String numero;
+    
+    public String NumSerie(int dato)
+    {
+        this.dato = dato + 1;
+        if((this.dato>=10000000)&&(this.dato<=100000000))
+        {
+            numero=""+this.dato;
+        }    
+        if((this.dato>=1000000)&&(this.dato<=10000000))
+        {
+            numero="0"+this.dato;
+        }
+        if((this.dato>=10000000)&&(this.dato<=100000000))
+        {
+            numero="00"+this.dato;
+        }    
+        if((this.dato>=100000)&&(this.dato<=1000000))
+        {
+            numero="000"+this.dato;
+        } 
+        if((this.dato>=10000)&&(this.dato<=100000))
+        {
+            numero="0000"+this.dato;
+        }   
+        if((this.dato>=1000)&&(this.dato<=10000))
+        {
+            numero="00000"+this.dato;
+        } 
+        if((this.dato>=100)&&(this.dato<=1000))
+        {
+            numero="000000"+this.dato;
+        } 
+        if((this.dato>=10)&&(this.dato<=100))
+        {
+            numero="0000000"+this.dato;
+        }
+        if((this.dato<10))
+        {
+            numero="00000000"+this.dato;
+        }    
+       
+        return this.numero;
+    }
+   
+
+}
+
+Package Controlador
+
+package Controlador;
+
+import Config.GenerarNumSerie;
+import Modelo.Usuario;
+import Modelo.UsuarioDAO;
+import Modelo.Cliente;
+import Modelo.ClienteDAO;
+import Modelo.Producto;
+import Modelo.ProductoDAO;
+import Modelo.Venta;
+import Modelo.VentasDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author rfmoy
+ */
+@WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
+public class Controlador extends HttpServlet {
+
+    Usuario usu = new Usuario();
+    UsuarioDAO usuDAO = new UsuarioDAO();
+    Cliente c = new Cliente();
+    ClienteDAO cdao = new ClienteDAO();
+    Producto p = new Producto();
+    ProductoDAO pdao = new ProductoDAO();
+
+    int IdCliente;
+    int IdProducto;
+    int idEmpleado;
+    Venta v = new Venta();
+    List<Venta> lista = new ArrayList<>();
+    int item;
+    int cod;
+    String descripcion;
+    double precio;
+    int cant;
+    double subtotal;
+    double iva;
+    double neto;
+    String numeroSerie;
+    VentasDAO vdao = new VentasDAO();
+    double totalApagar;
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String menu = request.getParameter("menu");
+        String accion = request.getParameter("accion");
+
+        if (menu.equals("Principal")) {
+
+            request.getRequestDispatcher("Principal.jsp").forward(request, response);
+        }
+        if(menu.equals("Home"))
+        {
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
+        }
+        
+        if (menu.equals("Productos")) {
+
+            switch (accion) {
+                case "Listar":
+                    List lista = pdao.listar();
+                    request.setAttribute("productos", lista);
+
+                    break;
+                case "Agregar":
+
+                    
+                    String Nombre = request.getParameter("txtNombre");
+                    Double Precio = Double.parseDouble(request.getParameter("txtPrecio"));
+                    int Stock = Integer.parseInt(request.getParameter("txtStock"));
+                    String Estado = request.getParameter("txtEstado");
+        
+                    p.setNombre(Nombre);
+                    p.setPrecio(Precio);
+                    p.setStock(Stock);
+                    p.setEstado(Estado);
+                    pdao.agregar(p);
+                    request.getRequestDispatcher("Controlador?menu=Productos&accion=Listar").forward(request, response);
+                    break; 
+                 case "Modificar":
+
+                    IdProducto = Integer.parseInt(request.getParameter("idProducto"));
+                    Producto pr = pdao.listarId(IdProducto);
+                    request.setAttribute("producto", pr);
+                    request.getRequestDispatcher("Controlador?menu=Productos&accion=Listar").forward(request, response);
+
+                    break;
+
+                case "Actualizar":
+
+                    
+                    String Nombre1 = request.getParameter("txtNombre");
+                    Double Precio1 = Double.parseDouble(request.getParameter("txtPrecio"));
+                    int Stock1 = Integer.parseInt(request.getParameter("txtStock"));
+                    String Estado1 = request.getParameter("txtEstado");
+                    p.setNombre(Nombre1);
+                    p.setPrecio(Precio1);
+                    p.setStock(Stock1);
+                    p.setEstado(Estado1);
+                  
+                    p.setIdProducto(IdProducto);
+                    pdao.actualizar(p);
+
+                    request.getRequestDispatcher("Controlador?menu=Productos&accion=Listar").forward(request, response);
+
+                    break;
+                case "Eliminar":
+                    IdProducto = Integer.parseInt(request.getParameter("idProducto"));
+                    pdao.eliminar(IdProducto);
+                    request.getRequestDispatcher("Controlador?menu=Productos&accion=Listar").forward(request, response);
+
+                    break;    
+                default:
+                    throw new AssertionError();
+            }
+
+            request.getRequestDispatcher("Productos.jsp").forward(request, response);
+        }
+        if (menu.equals("Usuarios")) {
+
+            switch (accion) {
+                case "Listar":
+                    List lista = usuDAO.listar();
+                    request.setAttribute("usuarios", lista);
+
+                    break;
+                case "Agregar":
+
+                    String Rut = request.getParameter("txtRut");
+                    String Nombres = request.getParameter("txtNombres");
+                    String Apellidos = request.getParameter("txtApellidos");
+                    String Telefono = request.getParameter("txtTelefono");
+                    String Estado = request.getParameter("txtEstado");
+                    String Usuario = request.getParameter("txtUsuario");
+
+                    usu.setRut(Rut);
+                    usu.setNombres(Nombres);
+                    usu.setApellidos(Apellidos);
+                    usu.setTelefono(Telefono);
+                    usu.setEstado(Estado);
+                    usu.setUser(Usuario);
+                    usuDAO.agregar(usu);
+                    request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
+                    break;
+
+                case "Modificar":
+
+                    idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+                    Usuario us = usuDAO.listarId(idEmpleado);
+                    request.setAttribute("usuario", us);
+                    request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
+
+                    break;
+
+                case "Actualizar":
+
+                    String Rut1 = request.getParameter("txtRut");
+                    String Nombres1 = request.getParameter("txtNombres");
+                    String Apellidos1 = request.getParameter("txtApellidos");
+                    String Telefono1 = request.getParameter("txtTelefono");
+                    String Estado1 = request.getParameter("txtEstado");
+                    String Usuario1 = request.getParameter("txtUsuario");
+
+                    usu.setRut(Rut1);
+                    usu.setNombres(Nombres1);
+                    usu.setApellidos(Apellidos1);
+                    usu.setTelefono(Telefono1);
+                    usu.setEstado(Estado1);
+                    usu.setUser(Usuario1);
+                    usu.setIdEmpleado(idEmpleado);
+                    usuDAO.actualizar(usu);
+
+                    request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
+
+                    break;
+
+                case "Eliminar":
+                    idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+                    usuDAO.eliminar(idEmpleado);
+                    request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
+
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+
+            request.getRequestDispatcher("Usuarios.jsp").forward(request, response);
+
+        }
+
+        if (menu.equals("Clientes")) {
+             switch (accion) {
+                case "Listar":
+                    List lista = cdao.listar();
+                    request.setAttribute("clientes", lista);
+
+                    break;
+                case "Agregar":
+
+                    String Rut = request.getParameter("txtRut");
+                    String Nombres = request.getParameter("txtNombres");
+                    String Direccion = request.getParameter("txtDireccion");
+                    String Estado = request.getParameter("txtEstado");
+
+                    c.setRut(Rut);
+                    c.setNombres(Nombres);
+                    c.setDireccion(Direccion);
+                    c.setEstado(Estado);
+                    cdao.agregar(c);
+                    
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+                    break;
+
+                case "Modificar":
+
+                    IdCliente = Integer.parseInt(request.getParameter("IdCliente"));
+                    Cliente cli = cdao.listarId(IdCliente);
+                    request.setAttribute("cliente", cli);
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+
+                    break;
+                    
+                 case "Actualizar":
+
+                    String Rut1 = request.getParameter("txtRut");
+                    String Nombres1 = request.getParameter("txtNombres");
+                    String Direccion1 = request.getParameter("txtDireccion");
+                    String Estado1 = request.getParameter("txtEstado");
+                    
+
+                    c.setRut(Rut1);
+                    c.setNombres(Nombres1);
+                    c.setDireccion(Direccion1);
+                    c.setEstado(Estado1);
+                 
+                    c.setIdCliente(IdCliente);
+                    cdao.actualizar(c);
+
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+
+                    break;
+
+                case "Eliminar":
+                    IdCliente = Integer.parseInt(request.getParameter("IdCliente"));
+                    cdao.eliminar(IdCliente);
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+
+                    break;    
+
+            
+            default:
+                    throw new AssertionError();
+            }
+            
+            request.getRequestDispatcher("Clientes.jsp").forward(request, response);
+        }
+
+        if (menu.equals("Ventas")) {
+
+            switch (accion) {
+                case "BuscarC":
+                    String rut = request.getParameter("codigoCliente");
+
+                    c.setRut(rut);
+                    c = cdao.buscar(rut);
+                    request.setAttribute("c", c);
+                    request.setAttribute("nserie", numeroSerie);
+
+                    break;
+
+                case "BuscarP":
+
+                    IdProducto = Integer.parseInt(request.getParameter("codigoProducto"));
+                    p = pdao.listarId(IdProducto);
+                    request.setAttribute("c", c);
+                    request.setAttribute("producto", p);
+                    request.setAttribute("lista", lista);
+
+                    request.setAttribute("totalApagar", totalApagar);
+
+                    break;
+
+                case "Agregar":
+
+                    request.setAttribute("lista", lista);
+                    request.setAttribute("c", c);
+                    request.setAttribute("nserie", numeroSerie);
+                    neto = 0.0;
+                    iva = 0.0;
+                    totalApagar = 0.0;
+                    item = item + 1;
+                    cod = p.getIdProducto();
+                    descripcion = request.getParameter("nombreProducto");
+                    precio = Double.parseDouble(request.getParameter("precio"));
+                    cant = Integer.parseInt(request.getParameter("cantidad"));
+                    subtotal = precio * cant;
+
+                    v = new Venta();
+
+                    v.setItem(item);
+                    v.setIdProducto(cod);
+                    v.setDescripcionP(descripcion);
+                    v.setPrecio(precio);
+                    v.setCantidad(cant);
+                    v.setSubtotal(subtotal);
+
+                    lista.add(v);
+                    for (int i = 0; i < lista.size(); i++) {
+
+                        totalApagar = totalApagar + lista.get(i).getSubtotal();
+                        iva = totalApagar * 0.19;
+                        neto = totalApagar - iva;
+
+                    }
+                    request.setAttribute("neto", neto);
+                    request.setAttribute("iva", iva);
+                    request.setAttribute("totalApagar", totalApagar);
+                    request.setAttribute("lista", lista);
+
+                    break;
+                case "GenerarVenta":
+                    //Actualizar Stock
+                    for (int i = 0; i < lista.size(); i++) {
+                        Producto pr = new Producto();
+                        int cantidad = lista.get(i).getCantidad();
+                        int idProducto = lista.get(i).getIdProducto();
+                        ProductoDAO dao = new ProductoDAO();
+                        pr = dao.buscar(idProducto);
+                        int stockActual = pr.getStock() - cantidad;
+                        dao.actualizarStock(idProducto, stockActual);
+                    }
+                    //Guardar Venta
+                    v = new Venta();
+                    v.setIdCliente(c.getIdCliente());
+                    v.setIdEmpleado(1);
+                    v.setNumeroSerie(numeroSerie);
+                    v.setFecha("2023-11-27");
+                    v.setMonto(totalApagar);
+                    v.setEstado("1");
+                    vdao.guardarVenta(v);
+                    int idv = Integer.parseInt(vdao.IdVenta());
+                    for (int i = 0; i < lista.size(); i++) {
+                        v = new Venta();
+                        v.setIdVenta(idv);
+                        v.setIdProducto(lista.get(i).getIdProducto());
+                        v.setCantidad(lista.get(i).getCantidad());
+                        v.setPrecio(lista.get(i).getPrecio());
+
+                        vdao.GuardarDetalleVenta(v);
+                    }
+                    lista.clear();
+                    break;
+
+                case "ElimarLista":
+
+                    IdProducto = Integer.parseInt(request.getParameter("IdProducto"));
+
+                    if (lista != null) {
+                        for (int i = 0; i < lista.size(); i++) {
+                            System.out.println(lista.get(i).getIdProducto());
+                            if (lista.get(i).getIdProducto() == IdProducto) {
+                                lista.remove(lista.get(i));
+                                break;
+                            }
+                        }
+
+                    }
+                    request.setAttribute("c", c);
+                    request.setAttribute("nserie", numeroSerie);
+                    request.setAttribute("lista", lista);
+                    break;
+
+                default:
+                    numeroSerie = vdao.generarSerie();
+                    if (numeroSerie == null) {
+                        numeroSerie = "00000001";
+                        request.setAttribute("nserie", numeroSerie);
+                    } else {
+                        int incrementar = Integer.parseInt(numeroSerie);
+                        GenerarNumSerie gs = new GenerarNumSerie();
+                        numeroSerie = gs.NumSerie(incrementar);
+                        request.setAttribute("nserie", numeroSerie);
+                    }
+                    request.getRequestDispatcher("Ventas.jsp").forward(request, response);
+
+            }
+            request.getRequestDispatcher("Ventas.jsp").forward(request, response);
+
+        }
+
+    }
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+Packages Validar
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controlador;
+
+import Modelo.Usuario;
+import Modelo.UsuarioDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.String;
+
+/**
+ *
+ * @author rfmoy
+ */
+@WebServlet(name = "Validar", urlPatterns = {"/Validar"})
+public class Validar extends HttpServlet {
+
+   UsuarioDAO usudao=new UsuarioDAO();
+   Usuario usuario= new Usuario();
+   
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Validar</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Validar at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+         String accion = request.getParameter("accion");
+        if (accion.equalsIgnoreCase("Ingresar")) {
+            String User = request.getParameter("txtUsuario");
+            String Rut = request.getParameter("txtpassword");
+            usuario = usudao.Validar(User,Rut);
+            
+            if (usuario.getUser()!= null) {
+                
+                request.setAttribute("usuario", usuario);
+                request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+                
+            } 
+            else {
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+
+            }
+        }
+        else {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+
+Modelos del sistema
+
+Packages Modelo Cliente
+
+package Modelo;
+
+/**
+ *
+ * @author rfmoy
+ */
+public class Cliente {
+    int IdCliente;
+    String Rut,Nombres,Direccion,Estado;
+
+    public Cliente() {
+    }
+
+    public Cliente(int IdCliente, String Rut, String Nombres, String Direccion, String Estado) {
+        this.IdCliente = IdCliente;
+        this.Rut = Rut;
+        this.Nombres = Nombres;
+        this.Direccion = Direccion;
+        this.Estado = Estado;
+    }
+
+    public int getIdCliente() {
+        return IdCliente;
+    }
+
+    public void setIdCliente(int IdCliente) {
+        this.IdCliente = IdCliente;
+    }
+
+    public String getRut() {
+        return Rut;
+    }
+
+    public void setRut(String Rut) {
+        this.Rut = Rut;
+    }
+
+    public String getNombres() {
+        return Nombres;
+    }
+
+    public void setNombres(String Nombres) {
+        this.Nombres = Nombres;
+    }
+
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String Direccion) {
+        this.Direccion = Direccion;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
+    
+    
+}
+
+Package Modelo ClienteDao
+
+package Modelo;
+
+import Config.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author rfmoy
+ */
+public class ClienteDAO {
+    
+    Conexion cn =new Conexion();
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
+    int resp;
+    
+    public Cliente buscar(String rut)
+    {   
+        
+        Cliente cliente=new Cliente();
+        
+        String sql= "select * from cliente where Rut=?";
+        try 
+        {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, rut);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                cliente.setIdCliente(rs.getInt("IdCliente"));
+                cliente.setRut(rs.getString("Rut"));
+                cliente.setNombres(rs.getString("Nombres"));
+                cliente.setDireccion(rs.getString("Direccion"));
+                cliente.setEstado(rs.getString("Estado"));
+            }
+           
+            
+        } 
+        catch (Exception e)
+        {
+            
+        }
+        return cliente;
+    }
+    
+    public List listar()
+    {
+        String sql="select * from cliente";
+        List<Cliente>lista=new ArrayList<>();
+        
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                
+                cliente.setIdCliente(rs.getInt("IdCliente"));
+                cliente.setRut(rs.getString("Rut"));
+                cliente.setNombres(rs.getString("Nombres"));
+                cliente.setDireccion(rs.getString("Direccion"));
+                cliente.setEstado(rs.getString("Estado"));
+                lista.add(cliente);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+
+        
+    }
+    
+    public int agregar(Cliente clien)
+    {
+        String sql="insert into cliente (Rut,Nombres,Direccion,Estado)values(?,?,?,?)";
+        
+        try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            
+            ps.setString(1, clien.getRut());
+            ps.setString(2, clien.getNombres());
+            ps.setString(3, clien.getDireccion());
+            ps.setString(5, clien.getEstado());
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        return resp;
+        
+        
+    }
+    
+    public Cliente listarId(int IdCliente){
+        Cliente clie = new Cliente();
+        String sql="select * from cliente where IdCliente="+IdCliente;
+        
+        try {
+            
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {   
+                
+                clie.setRut(rs.getString(2));
+                clie.setNombres(rs.getString(3));
+                clie.setDireccion(rs.getString(4));
+                clie.setEstado(rs.getString(5));
+                
+            }
+            
+        } catch (Exception e) {
+        }
+        return clie;
+    }   
+    
+    public int actualizar(Cliente cli){
+        
+       String sql="update cliente set Rut=?, Nombres=?,Direccion=?,Estado=? where IdCliente=?";
+        
+        try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            ps.setString(1, cli.getRut());
+            ps.setString(2, cli.getNombres());
+            ps.setString(3, cli.getDireccion());
+            ps.setString(4, cli.getEstado());
+            ps.setInt(5, cli.getIdCliente() );
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        return resp; 
+    }
+    
+    public void eliminar(int IdCliente)
+    {
+        String sql="delete from cliente where idCliente="+IdCliente;
+            try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        
+    }
+}
+
+Packages Modelo Producto
+
+clase Producto
+
+public class Producto {
+    int IdProducto,Stock;
+    String Nombre,Estado;
+    Double Precio;
+
+    public Producto() {
+    }
+
+    public Producto(int IdProducto,  String Nombre, Double Precio,int Stock, String Estado) {
+        this.IdProducto = IdProducto;
+        this.Nombre = Nombre;
+        this.Precio = Precio;
+        this.Stock = Stock;
+        this.Estado = Estado;
+    }
+
+    public int getIdProducto() {
+        return IdProducto;
+    }
+
+    public void setIdProducto(int IdProducto) {
+        this.IdProducto = IdProducto;
+    }
+
+    public int getStock() {
+        return Stock;
+    }
+
+    public void setStock(int Stock) {
+        this.Stock = Stock;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
+
+    public Double getPrecio() {
+        return Precio;
+    }
+
+    public void setPrecio(Double Precio) {
+        this.Precio = Precio;
+    }
+
+   
+}
+
+Packages Modelo ProductoDAO
+
+import Config.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author rfmoy
+ */
+public class ProductoDAO {
+    
+    Conexion cn =new Conexion();
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
+    int resp;
+    int p;
+ 
+    public Producto buscar (int id)
+    {
+        Producto p=new Producto();
+        
+        String sql="select * from producto where IdProducto="+id;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                p.setIdProducto(rs.getInt(1));
+                p.setNombre(rs.getString(2));
+                p.setPrecio(rs.getDouble(3));
+                p.setStock(rs.getInt(4));
+                p.setEstado(rs.getString(5));
+                
+            }
+        } catch (Exception e) {
+        }
+        
+        return p;
+    }
+    
+    public int actualizarStock(int id,int stock)
+    {
+        String sql="update producto set Stock=? where IdProducto=?";
+        try {
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            
+            ps.setInt(1,stock );
+            ps.setInt(2,id );
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return resp;
+    }
+    
+     public List listar()
+    {
+        String sql="select * from producto";
+        List<Producto>lista = new ArrayList<>();
+        
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                Producto producto = new Producto();
+                
+                producto.setIdProducto(rs.getInt("IdProducto"));
+                producto.setNombre(rs.getString("Nombre"));
+                producto.setPrecio(rs.getDouble("Precio"));
+                producto.setStock(rs.getInt("Stock")); 
+                producto.setEstado(rs.getString("Estado"));
+                
+                lista.add(producto);
+
+            }
+        } catch (SQLException ex) {
+            
+        }
+        return lista;
+
+        
+    }
+    
+    public int agregar(Producto prod)
+    {
+        String sql="insert into producto(Nombre,Precio,Stock,Estado)values(?,?,?,?)";
+        
+        try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            
+            
+            ps.setString(1, prod.getNombre());
+            ps.setDouble(2, prod.getPrecio());
+            ps.setInt   (3, prod.getStock());
+            ps.setString(4, prod.getEstado());
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        return resp;
+        
+        
+    }
+    
+    public Producto listarId(int IdProducto){
+        Producto pro = new Producto();
+        String sql="select * from producto where IdProducto="+IdProducto;
+        
+        try {
+            
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {   
+                pro.setIdProducto(rs.getInt(1));
+                pro.setNombre(rs.getString(2));
+                pro.setPrecio(rs.getDouble(3));
+                pro.setStock(rs.getInt(4));
+                pro.setEstado(rs.getString(5));
+                
+            }
+            
+        } catch (Exception e) {
+        }
+        return pro;
+    }   
+    
+    public int actualizar(Producto pr){
+        
+       String sql="update producto set Nombre=?,Precio=?,Stock=?,Estado=? where IdProducto=?";
+        
+        try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            ps.setString(1, pr.getNombre());
+            ps.setDouble(2, pr.getPrecio());
+            ps.setInt(3, pr.getStock());
+            ps.setString(4, pr.getEstado());
+            ps.setInt(5, pr.getIdProducto() );
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        return resp; 
+    }
+    
+    public void eliminar(int IdProducto)
+    {
+        String sql="delete from producto where IdProducto="+IdProducto;
+            try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        
+    }
+  
+}
+
+Package Modelo Usuario
+
+public class Usuario {
+    int idEmpleado;
+    String Rut,Nombres,Apellidos,Telefono,Estado,User;
+
+    public Usuario() {
+    }
+
+    public Usuario(int idEmpleado, String Rut, String Nombres, String Apellidos, String Telefono, String Estado, String User) {
+        this.idEmpleado = idEmpleado;
+        this.Rut = Rut;
+        this.Nombres = Nombres;
+        this.Apellidos = Apellidos;
+        this.Telefono = Telefono;
+        this.Estado = Estado;
+        this.User = User;
+    }
+
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public String getRut() {
+        return Rut;
+    }
+
+    public void setRut(String Rut) {
+        this.Rut = Rut;
+    }
+
+    public String getNombres() {
+        return Nombres;
+    }
+
+    public void setNombres(String Nombres) {
+        this.Nombres = Nombres;
+    }
+
+    public String getApellidos() {
+        return Apellidos;
+    }
+
+    public void setApellidos(String Apellidos) {
+        this.Apellidos = Apellidos;
+    }
+
+    public String getTelefono() {
+        return Telefono;
+    }
+
+    public void setTelefono(String Telefono) {
+        this.Telefono = Telefono;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
+
+    public String getUser() {
+        return User;
+    }
+
+    public void setUser(String User) {
+        this.User = User;
+    }
+    
+    
+}
+
+Package Modelo UsuarioDAO
+package Modelo;
+
+import Config.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class UsuarioDAO {
+    
+    Conexion cn =new Conexion();
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
+    int resp;
+    
+    public Usuario Validar(String User, String Rut) {
+        Usuario usuario = new Usuario();
+        String consulta = "SELECT * FROM empleado WHERE User = ? AND Rut = ?";
+        
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(consulta);
+            ps.setString(1, User);
+            ps.setString(2, Rut);
+            rs = ps.executeQuery();
+            rs.next();
+            do {
+                usuario.setIdEmpleado(rs.getInt("IdEmpleado"));
+                usuario.setRut(rs.getString("Rut"));
+                usuario.setNombres(rs.getString("Nombres"));
+                usuario.setApellidos(rs.getString("Apellidos"));
+                usuario.setTelefono(rs.getString("Telefono")); 
+                usuario.setEstado(rs.getString("Estado"));
+                usuario.setUser(rs.getString("User"));
+                
+            } while (rs.next());
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return usuario;
+
+    }
+        
+    //Operaciones Crud
+    
+    public List listar()
+    {
+        String sql="select * from empleado";
+        List<Usuario>lista=new ArrayList<>();
+        
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                
+                usuario.setIdEmpleado(rs.getInt("idEmpleado"));
+                usuario.setRut(rs.getString("Rut"));
+                usuario.setNombres(rs.getString("Nombres"));
+                usuario.setApellidos(rs.getString("Apellidos"));
+                usuario.setTelefono(rs.getString("Telefono")); 
+                usuario.setEstado(rs.getString("Estado"));
+                usuario.setUser(rs.getString("User"));
+                lista.add(usuario);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+
+        
+    }
+    
+    public int agregar(Usuario us)
+    {
+        String sql="insert into empleado(Rut,Nombres,Apellidos,Telefono,Estado,User)values(?,?,?,?,?,?)";
+        
+        try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            
+            ps.setString(1, us.getRut());
+            ps.setString(2, us.getNombres());
+            ps.setString(3, us.getApellidos());
+            ps.setString(4, us.getTelefono());
+            ps.setString(5, us.getEstado());
+            ps.setString(6, us.getUser());
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        return resp;
+        
+        
+    }
+    
+    public Usuario listarId(int idEmpleado){
+        Usuario usu = new Usuario();
+        String sql="select * from empleado where IdEmpleado="+idEmpleado;
+        
+        try {
+            
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {   
+                
+                usu.setRut(rs.getString(2));
+                usu.setNombres(rs.getString(3));
+                usu.setApellidos(rs.getString(4));
+                usu.setTelefono(rs.getString(5)); 
+                usu.setEstado(rs.getString(6));
+                usu.setUser(rs.getString(7));
+            }
+            
+        } catch (Exception e) {
+        }
+        return usu;
+    }   
+    
+    public int actualizar(Usuario us){
+        
+       String sql="update empleado set Rut=?, Nombres=?,Apellidos=?,Telefono=?,Estado=?,User=? where idEmpleado=?";
+        
+        try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            ps.setString(1, us.getRut());
+            ps.setString(2, us.getNombres());
+            ps.setString(3, us.getApellidos());
+            ps.setString(4, us.getTelefono());
+            ps.setString(5, us.getEstado());
+            ps.setString(6, us.getUser());
+            ps.setInt(7, us.getIdEmpleado() );
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        return resp; 
+    }
+    
+    public void eliminar(int idEmpleado)
+    {
+        String sql="delete from empleado where idEmpleado="+idEmpleado;
+            try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            ps.executeUpdate();
+            
+        }catch (Exception e){
+            
+        }
+        
+    }
+    
+}
+
+Package Modelo venta
+
+package Modelo;
+
+/**
+ *
+ * @author rfmoy
+ */
+public class Venta {
+    Integer IdVenta;
+    Integer Item;
+    Integer IdCliente;
+    Integer IdEmpleado;
+    Integer IdProducto;
+    String NumeroSerie;
+    String DescripcionP;
+    String fecha;
+    Double precio;
+    Integer cantidad;
+    Double Subtotal;
+    Double monto;
+    String estado;
+
+    public Venta() {
+    }
+
+    public Venta(Integer IdVenta, Integer Item, Integer IdCliente, Integer IdEmpleado, Integer IdProducto, String NumeroSerie, String DescripcionP, String fecha, Double precio, Integer cantidad, Double subtotal, Double monto, String estado) {
+        this.IdVenta = IdVenta;
+        this.Item = Item;
+        this.IdCliente = IdCliente;
+        this.IdEmpleado = IdEmpleado;
+        this.IdProducto = IdProducto;
+        this.NumeroSerie = NumeroSerie;
+        this.DescripcionP = DescripcionP;
+        this.fecha = fecha;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.Subtotal = subtotal;
+        this.monto = monto;
+        this.estado = estado;
+    }
+
+    public Integer getIdVenta() {
+        return IdVenta;
+    }
+
+    public void setIdVenta(Integer IdVenta) {
+        this.IdVenta = IdVenta;
+    }
+
+    public Integer getItem() {
+        return Item;
+    }
+
+    public void setItem(Integer Item) {
+        this.Item = Item;
+    }
+
+    public Integer getIdCliente() {
+        return IdCliente;
+    }
+
+    public void setIdCliente(Integer IdCliente) {
+        this.IdCliente = IdCliente;
+    }
+
+    public Integer getIdEmpleado() {
+        return IdEmpleado;
+    }
+
+    public void setIdEmpleado(Integer IdEmpleado) {
+        this.IdEmpleado = IdEmpleado;
+    }
+
+    public Integer getIdProducto() {
+        return IdProducto;
+    }
+
+    public void setIdProducto(Integer IdProducto) {
+        this.IdProducto = IdProducto;
+    }
+
+    public String getNumeroSerie() {
+        return NumeroSerie;
+    }
+
+    public void setNumeroSerie(String NumeroSerie) {
+        this.NumeroSerie = NumeroSerie;
+    }
+
+    public String getDescripcionP() {
+        return DescripcionP;
+    }
+
+    public void setDescripcionP(String DescripcionP) {
+        this.DescripcionP = DescripcionP;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Double getSubtotal() {
+        return Subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.Subtotal = subtotal;
+    }
+
+    public Double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Double monto) {
+        this.monto = monto;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
+}
+
+Package Modelo VentaDAO
+
+package Modelo;
+
+import Config.Conexion;
+import java.sql.ResultSet;
+;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+/**
+ *
+ * @author rfmoy
+ */
+
+
+public class VentasDAO {
+
+    Connection con;
+    Conexion cn = new Conexion();
+    PreparedStatement ps;
+    ResultSet rs;
+    int r;
+
+    public String generarSerie() {
+        String numeroserie = "";
+        String sql = "select max(NumeroSerie) from ventas";
+
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                numeroserie = rs.getString(1);
+            }
+        } catch (Exception e) {
+
+        }
+
+        return numeroserie;
+    }
+
+    public String IdVenta() {
+        String idventas = "";
+        String sql = "select max(IdVentas) from ventas";
+
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                idventas = rs.getString(1);
+            }
+        } catch (Exception e) {
+        }
+        return idventas;
+    }
+
+    public int guardarVenta(Venta ve) 
+    {
+        String sql = "insert into ventas (IdCliente,IdEmpleado,NumeroSerie,FechaVentas,Monto,Estado) values(?,?,?,?,?,?)";
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, ve.getIdCliente());
+            ps.setInt(2, ve.getIdEmpleado());
+            ps.setString(3, ve.getNumeroSerie());
+            ps.setString(4,ve.getFecha());
+            ps.setDouble(5,ve.getMonto());
+            ps.setString(6, ve.getEstado());
+            
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return r;
+    }
+    public int GuardarDetalleVenta(Venta venta)
+    {
+        String sql = "insert into detalle_ventas (IdVentas,IdProducto,Cantidad,PrecioVenta) values(?,?,?,?)";
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, venta.getIdVenta());
+            ps.setInt(2, venta.getIdProducto());
+            ps.setInt(3, venta.getCantidad());
+            ps.setDouble(4,venta.getPrecio());
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+        }
+        return r;
+    }
+}
+
+	
